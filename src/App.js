@@ -5,7 +5,7 @@ import Header from "./Components/Header";
 import AddNote from "./Pages/AddNote";
 import Notes from "./Pages/Notes";
 import { getActiveNotes, getArchivedNotes } from "./utils/local-data";
-import SearchBar from "./Components/SearchBar";
+import NotFound from "./Pages/NotFound";
 
 function App() {
   const [notes, setNotes] = useState({
@@ -27,13 +27,14 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Notes notes={notes.activeNotes} />} />
+          <Route path="/" exact element={<Notes notes={notes.activeNotes} />} />
           <Route
             path="/archived"
             element={<Notes notes={notes.archivedNotes} />}
           />
           <Route path="/notes/:noteId" element={<DetailNote />} />
           <Route path="/add" element={<AddNote />} />
+          <Route path="*" exact element={<NotFound />} />
         </Routes>
       </main>
     </div>

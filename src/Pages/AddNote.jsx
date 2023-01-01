@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { addNote, getAllNotes } from "../utils/local-data";
+import { addNote } from "../utils/local-data";
 import { useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 
-const Inputform = () => {
+const AddNote = () => {
   const [data, setData] = useState({
     title: "",
     body: "",
@@ -49,4 +49,4 @@ const Inputform = () => {
   );
 };
 
-export default Inputform;
+export default AddNote;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import {showFormattedDate} from '../utils'
+import PropTypes from "prop-types";
 
 const NoteItem = ({ id, title, body, createdAt }) => {
   return (
@@ -12,6 +13,13 @@ const NoteItem = ({ id, title, body, createdAt }) => {
       <p className="note-item__body">{body}</p>
     </div>
   );
+};
+
+NoteItem.propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  body: PropTypes.string,
+  createdAt: PropTypes.number,
 };
 
 export default NoteItem;
