@@ -1,15 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <header>
       <h1>
-        <a href="/">Notees</a>
+        <Link to={'/'}>Notees</Link>
       </h1>
       <nav className="navigation">
         <ul>
           <li>
-            <a href="/archived">Archived</a>
+            <Link to={'/archived'}>Archived</Link>
           </li>
         </ul>
       </nav>

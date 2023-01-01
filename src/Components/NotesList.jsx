@@ -1,14 +1,14 @@
 import React from "react";
 import NoteItem from "./NoteItem";
 
-const NotesList = ({ allNotes }) => {
-  
+const NotesList = ({ notes }) => {
   return (
     <div className="notes-list">
-      {allNotes.map((note) => {
+      {notes.map((note) => {
         return (
           <NoteItem
             key={note.id}
+            id={note.id}
             title={note.title}
             body={note.body}
             createdAt={note.createdAt}
