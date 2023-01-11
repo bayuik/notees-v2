@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { addNote } from "../utils/local-data";
+import { addNote } from "../utils/netword-data";
 import { useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
+import InputField from "../Components/InputField";
+import TextArea from "../Components/TextArea";
 
 const AddNote = () => {
   const [data, setData] = useState({
@@ -26,20 +28,19 @@ const AddNote = () => {
 
   return (
     <form className="add-new-page__input" onSubmit={handleSubmit}>
-      <input
+      <InputField
         type="text"
-        className="add-new-page__input__title"
+        className={"add-new-page__input__title"}
         placeholder="Title..."
         name="title"
         onChange={handleChange}
       />
-      <textarea
-        className="add-new-page__input__body"
+      <TextArea
+        className={"add-new-page__input__body"}
         placeholder="Note..."
-        spellCheck="false"
         name="body"
         onChange={handleChange}
-      ></textarea>
+      />
       <div className="add-new-page__action">
         <button className="action" type="submit" title="simpan">
           <MdDone />

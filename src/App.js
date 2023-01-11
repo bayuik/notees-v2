@@ -4,21 +4,30 @@ import DetailNote from "./Pages/DetailNote";
 import Header from "./Components/Header";
 import AddNote from "./Pages/AddNote";
 import Notes from "./Pages/Notes";
-import { getActiveNotes, getArchivedNotes } from "./utils/local-data";
+import { getActiveNotes, getArchivedNotes } from "./utils/netword-data";
 import NotFound from "./Pages/NotFound";
+import Register from "./Pages/Register";
+import Login from "./Pages/Login";
 
 function App() {
   const [notes, setNotes] = useState({
-    activeNotes: getActiveNotes(),
-    archivedNotes: getArchivedNotes(),
+    activeNotes: [],
+    archivedNotes: [],
   });
 
   const location = useLocation();
 
   useEffect(() => {
-    setNotes({
-      activeNotes: getActiveNotes(),
-      archivedNotes: getArchivedNotes(),
+    getActiveNotes().then((res) => {
+      setNotes((prevNotes) => {
+        return { ...prevNotes, activeNotes: res.data };
+      });
+    });
+
+    getArchivedNotes().then((res) => {
+      setNotes((prevNotes) => {
+        return { ...prevNotes, archivedNotes: res.data };
+      });
     });
   }, [location]);
 
@@ -32,6 +41,8 @@ function App() {
             path="/archived"
             element={<Notes notes={notes.archivedNotes} />}
           />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/notes/:noteId" element={<DetailNote />} />
           <Route path="/add" element={<AddNote />} />
           <Route path="*" exact element={<NotFound />} />

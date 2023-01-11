@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getNote, archiveNote, deleteNote } from "../utils/local-data";
+import { getNote, archiveNote, deleteNote } from "../utils/netword-data";
 import { showFormattedDate } from "../utils";
 import { MdOutlineDelete } from "react-icons/md";
 import { IoArchiveOutline } from "react-icons/io5";
 
 const DetailNote = () => {
   const { noteId } = useParams();
-  const [note, setNote] = useState(getNote(noteId));
+  const [note, setNote] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getNote(noteId).then(({data}) => {
+      setNote(data);
+    });
+  }, [noteId]);
 
   const handleDelete = () => {
     deleteNote(note.id);

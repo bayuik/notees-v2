@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { MdOutlineGTranslate, MdOutlineWbSunny } from "react-icons/md";
+import { BiMoon } from "react-icons/bi";
 
 const Header = () => {
   return (
@@ -14,6 +16,13 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+        <button className="toggle-locale" type="button" >
+          <MdOutlineGTranslate className="" />
+        </button>
+        <button className="toggle-theme">
+          <MdOutlineWbSunny className="" />
+          <BiMoon/>
+        </button>
     </header>
   );
 };
