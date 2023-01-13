@@ -1,25 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineGTranslate, MdOutlineWbSunny } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
 import { HiOutlineLogout } from "react-icons/hi";
-import { useSelector, useDispatch } from "react-redux";
-import { setTheme } from "../Store/themeSlice";
+import { useSelector } from "react-redux";
+import ThemeContext from "../Store/ThemeContext";
 
-const Header = () => {
-  const { theme } = useSelector(({ theme }) => theme);
+const Header = ({ theme }) => {
   const { user } = useSelector((user) => user);
-  const dispatch = useDispatch();
+  const { setTheme } = useContext(ThemeContext);
 
   const handleClick = () => {
-    dispatch(setTheme());
-    localStorage.setItem("theme", theme);
+    setTheme(theme === "light" ? "dark" : "light");
+    localStorage.setItem("theme", "light");
   };
 
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
     if (localTheme) {
-      dispatch(setTheme(localTheme));
+      setTheme(localTheme);
     }
   }, []);
 

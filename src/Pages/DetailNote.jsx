@@ -25,6 +25,7 @@ const DetailNote = () => {
     archiveNote(note.id);
     navigate("/");
   };
+  
   return (
     <div className="detail-page">
       <h1 className="detail-page__title">{note.title}</h1>

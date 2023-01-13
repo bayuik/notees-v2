@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const TextArea = ({
   className,
@@ -16,6 +17,14 @@ const TextArea = ({
       className={className}
     ></textarea>
   );
+};
+
+TextArea.propTypes = {
+  className: PropTypes.string,
+  placeholder: PropTypes.string,
+  spellCheck: PropTypes.bool,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default TextArea;
