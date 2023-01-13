@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const NotesList = ({ notes }) => {
   return (
     <>
-      {!notes && (
+      {notes.length === 0 && (
         <div className="notes-list-empty">
           <p>You don't have notes yet</p>
         </div>
