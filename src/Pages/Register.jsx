@@ -18,8 +18,6 @@ const Register = () => {
       ...data,
       [e.target.name]: e.target.value,
     });
-
-    console.log(data);
   };
 
   const handleSubmit = (e) => {

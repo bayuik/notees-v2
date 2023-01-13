@@ -5,13 +5,13 @@ import PropTypes from "prop-types";
 const NotesList = ({ notes }) => {
   return (
     <>
-      {notes.length === 0 && (
+      {!notes && (
         <div className="notes-list-empty">
           <p>You don't have notes yet</p>
         </div>
       )}
       <div className="notes-list">
-        {notes.length > 0 &&
+        {notes &&
           notes.map((note) => {
             return (
               <NoteItem

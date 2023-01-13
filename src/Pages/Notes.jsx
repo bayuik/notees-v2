@@ -21,7 +21,7 @@ const Notes = ({ notes }) => {
 };
 
 Notes.propTypes = {
-  notes: PropTypes.array.isRequired,
+  notes: PropTypes.array,
 };
 
 export default Notes;

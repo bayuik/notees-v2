@@ -19,7 +19,7 @@ NoteItem.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   body: PropTypes.string,
-  createdAt: PropTypes.number,
+  createdAt: PropTypes.string,
 };
 
 export default NoteItem;

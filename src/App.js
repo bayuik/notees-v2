@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import DetailNote from "./Pages/DetailNote";
 import Header from "./Components/Header";
 import AddNote from "./Pages/AddNote";
@@ -21,11 +21,9 @@ function App() {
     archivedNotes: [],
   });
 
-  const user = useSelector((user) => user);
   const { theme } = useSelector(({ theme }) => theme);
   const dispatch = useDispatch();
-
-  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getActiveNotes().then((res) => {
@@ -39,7 +37,15 @@ function App() {
         return { ...prevNotes, archivedNotes: res.data };
       });
     });
-  }, [location]);
+
+    getUserLogged().then((res) => {
+      if (!res.error) {
+        dispatch(setLoggedUser(res.data));
+      } else {
+        navigate("/login");
+      }
+    });
+  }, [navigate, dispatch]);
 
   return (
     <div className="app-container" data-theme={theme}>

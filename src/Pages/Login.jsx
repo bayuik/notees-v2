@@ -21,7 +21,6 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login(data).then((res) => {
-      console.log(res);
       if (res.error === false) {
         putAccessToken(res.data.accessToken);
         navigate("/");

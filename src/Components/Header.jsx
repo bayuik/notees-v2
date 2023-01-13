@@ -8,10 +8,16 @@ import { setTheme } from "../Store/themeSlice";
 
 const Header = () => {
   const { theme } = useSelector(({ theme }) => theme);
+  const { user } = useSelector((user) => user);
   const dispatch = useDispatch();
 
   const handleClick = () => {
     dispatch(setTheme());
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    window.location.reload();
   };
 
   return (
@@ -32,9 +38,12 @@ const Header = () => {
       <button type="button" onClick={handleClick} className="toggle-theme">
         {theme === "light" ? <BiMoon /> : <MdOutlineWbSunny />}
       </button>
-      <button className="button-logout">
-        <HiOutlineLogout />
-      </button>
+      {user.name && (
+        <button className="button-logout" onClick={handleLogout}>
+          <HiOutlineLogout />
+          <p>{user.name}</p>
+        </button>
+      )}
     </header>
   );
 };
