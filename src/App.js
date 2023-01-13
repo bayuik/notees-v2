@@ -14,6 +14,7 @@ import Register from "./Pages/Register";
 import Login from "./Pages/Login";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoggedUser } from "./Store/userSlice";
+import { setTheme } from "./Store/themeSlice";
 
 function App() {
   const [notes, setNotes] = useState({
@@ -24,6 +25,7 @@ function App() {
   const { theme } = useSelector(({ theme }) => theme);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     getActiveNotes().then((res) => {
@@ -37,7 +39,9 @@ function App() {
         return { ...prevNotes, archivedNotes: res.data };
       });
     });
+  }, [location]);
 
+  useEffect(() => {
     getUserLogged().then((res) => {
       if (!res.error) {
         dispatch(setLoggedUser(res.data));
@@ -45,7 +49,7 @@ function App() {
         navigate("/login");
       }
     });
-  }, [navigate, dispatch]);
+  }, [dispatch, navigate]);
 
   return (
     <div className="app-container" data-theme={theme}>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineGTranslate, MdOutlineWbSunny } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
@@ -13,7 +13,15 @@ const Header = () => {
 
   const handleClick = () => {
     dispatch(setTheme());
+    localStorage.setItem("theme", theme);
   };
+
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    if (localTheme) {
+      dispatch(setTheme(localTheme));
+    }
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
