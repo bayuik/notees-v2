@@ -1,28 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { addNote } from "../utils/netword-data";
 import { useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 import InputField from "../Components/InputField";
 import TextArea from "../Components/TextArea";
+import useInput from "../Hooks/useInput";
 
 const AddNote = () => {
-  const [data, setData] = useState({
-    title: "",
-    body: "",
-  });
-
+  const [title, onTitleChange] = useInput("");
+  const [body, onBodyChange] = useInput("");
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    addNote(data);
+    addNote({ title, body });
     navigate("/");
   };
 
@@ -33,13 +23,15 @@ const AddNote = () => {
         className={"add-new-page__input__title"}
         placeholder="Title..."
         name="title"
-        onChange={handleChange}
+        value={title}
+        onChange={onTitleChange}
       />
       <TextArea
         className={"add-new-page__input__body"}
         placeholder="Note..."
         name="body"
-        onChange={handleChange}
+        value={body}
+        onChange={onBodyChange}
       />
       <div className="add-new-page__action">
         <button className="action" type="submit" title="simpan">

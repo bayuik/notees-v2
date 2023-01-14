@@ -1,28 +1,18 @@
-import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../Components/InputField";
+import useInput from "../Hooks/useInput";
 import { register } from "../utils/netword-data";
 
 const Register = () => {
-  const [data, setData] = useState({
-    name: "",
-    email: "",
-    password: "",
-    confirm: "",
-  });
 
+  const [name, setName] = useInput("");
+  const [email, setEmail] = useInput("");
+  const [password, setPassword] = useInput("");
+  const [confirm, setConfirm] = useInput("");
   const navigate = useNavigate();
-
-  const handleChange = (e) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    register(data).then((res) => {
+    register({ name, email, password }).then((res) => {
       if (res.status === "success") {
         navigate("/login");
       }
@@ -34,16 +24,31 @@ const Register = () => {
       <h2>Fill the form to register account.</h2>
       <form onSubmit={handleSubmit} className="input-register">
         <label htmlFor="name">Name</label>
-        <InputField type="text" name="name" onChange={handleChange} />
+        <InputField type="text" name="name" onChange={setName} value={name} />
 
         <label htmlFor="email">Email</label>
-        <InputField type="text" name="email" onChange={handleChange} />
+        <InputField
+          type="text"
+          name="email"
+          onChange={setEmail}
+          value={email}
+        />
 
         <label htmlFor="password">Password</label>
-        <InputField type="text" name="password" onChange={handleChange} />
+        <InputField
+          type="password"
+          name="password"
+          onChange={setPassword}
+          value={password}
+        />
 
         <label htmlFor="confirm">Confirm Password</label>
-        <InputField type="text" name="confirm" onChange={handleChange} />
+        <InputField
+          type="password"
+          name="confirm"
+          onChange={setConfirm}
+          value={confirm}
+        />
 
         <button type="submit">Register</button>
       </form>

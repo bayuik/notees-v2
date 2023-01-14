@@ -5,11 +5,13 @@ import { BiMoon } from "react-icons/bi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import ThemeContext from "../Store/ThemeContext";
+import { useNavigate } from "react-router-dom";
+import { setLogout } from "../Store/userSlice";
 
 const Header = ({ theme }) => {
   const { user } = useSelector((user) => user);
   const { setTheme } = useContext(ThemeContext);
-
+  const navigate = useNavigate();
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");
     localStorage.setItem("theme", "light");
@@ -24,6 +26,7 @@ const Header = ({ theme }) => {
 
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
+    setLogout();
     window.location.reload();
   };
 
@@ -34,9 +37,7 @@ const Header = ({ theme }) => {
       </h1>
       <nav className="navigation">
         <ul>
-          <li>
-            <Link to={"/archived"}>Archived</Link>
-          </li>
+          <li>{user.name && <Link to={"/archived"}>Archived</Link>}</li>
         </ul>
       </nav>
       <button className="toggle-locale" type="button">

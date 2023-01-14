@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import NotesList from "../Components/NotesList";
 import SearchBar from "../Components/SearchBar";
@@ -10,33 +10,46 @@ import { setActiveNotes, setArchivedNotes } from "../Store/noteSlice";
 
 const Notes = () => {
   const { activeNotes, archivedNotes } = useSelector((state) => state.notes);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
-    getActiveNotes().then((res) => {
-      dispatch(setActiveNotes(res.data));
-    });
+    if (location.pathname === "/") {
+      setLoading(true);
 
-    getArchivedNotes().then((res) => {
-      dispatch(setArchivedNotes(res.data));
-    });
+      getActiveNotes().then((res) => {
+        dispatch(setActiveNotes(res.data));
+          setLoading(false);
+      });
+    } else {
+      getArchivedNotes().then((res) => {
+        dispatch(setArchivedNotes(res.data));
+        setLoading(false);
+      });
+    }
   }, []);
 
   return (
-    <section className="homepage">
-      <SearchBar />
-      <NotesList
-        notes={location.pathname === "/" ? activeNotes : archivedNotes}
-      />
-      <div className="homepage__action">
-        <Link to={"/add"}>
-          <button className="action" title="tambah">
-            +
-          </button>
-        </Link>
-      </div>
-    </section>
+    <>
+      {loading ? (
+        <div className="not-found">Loading</div>
+      ) : (
+        <section className="homepage">
+          <SearchBar />
+          <NotesList
+            notes={location.pathname === "/" ? activeNotes : archivedNotes}
+          />
+          <div className="homepage__action">
+            <Link to={"/add"}>
+              <button className="action" title="tambah">
+                +
+              </button>
+            </Link>
+          </div>
+        </section>
+      )}
+    </>
   );
 };
 

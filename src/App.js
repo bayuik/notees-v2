@@ -11,6 +11,7 @@ import Login from "./Pages/Login";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "./Store/userSlice";
 import ThemeContext from "./Store/ThemeContext";
+import ProtectedRoute from "./Components/ProtectedRoute";
 
 function App() {
   const [theme, setTheme] = React.useState("light");
@@ -21,11 +22,10 @@ function App() {
     getUserLogged().then((res) => {
       if (!res.error) {
         dispatch(setLoggedUser(res.data));
-      } else {
-        navigate("/login");
+        navigate("/");
       }
     });
-  }, [dispatch, navigate, theme]);
+  }, [dispatch, theme, navigate]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
@@ -33,12 +33,41 @@ function App() {
         <Header theme={theme} />
         <main>
           <Routes>
-            <Route path="/" exact element={<Notes />} />
-            <Route path="/archived" element={<Notes />} />
+            <Route
+              path="/"
+              exact
+              element={
+                <ProtectedRoute>
+                  <Notes />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/archived"
+              element={
+                <ProtectedRoute>
+                  <Notes />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/notes/:noteId" element={<DetailNote />} />
-            <Route path="/add" element={<AddNote />} />
+            <Route
+              path="/notes/:noteId"
+              element={
+                <ProtectedRoute>
+                  <DetailNote />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/add"
+              element={
+                <ProtectedRoute>
+                  <AddNote />
+                </ProtectedRoute>
+              }
+            />
             <Route path="*" exact element={<NotFound />} />
           </Routes>
         </main>
