@@ -25,7 +25,7 @@ function App() {
         navigate("/");
       }
     });
-  }, [dispatch, theme, navigate]);
+  }, [dispatch, theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
