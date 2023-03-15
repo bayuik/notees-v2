@@ -1,13 +1,17 @@
+import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputField from "../Components/InputField";
 import useInput from "../Hooks/useInput";
-import { register } from "../utils/netword-data";
+import { register, getUserLogged } from "../utils/netword-data";
+import { setLoggedUser } from "../Store/userSlice";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const [name, setName] = useInput("");
   const [email, setEmail] = useInput("");
   const [password, setPassword] = useInput("");
   const [confirm, setConfirm] = useInput("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
