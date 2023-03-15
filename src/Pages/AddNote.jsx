@@ -1,9 +1,9 @@
 import React from "react";
-import { addNote } from "../utils/netword-data";
 import { useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
 import InputField from "../Components/InputField";
 import TextArea from "../Components/TextArea";
+import { addNote } from "../utils/netword-data";
 import useInput from "../Hooks/useInput";
 
 const AddNote = () => {

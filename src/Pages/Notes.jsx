@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import NotesList from "../Components/NotesList";
 import SearchBar from "../Components/SearchBar";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
 import { getActiveNotes, getArchivedNotes } from "../utils/netword-data";
 import { setActiveNotes, setArchivedNotes } from "../Store/noteSlice";
 

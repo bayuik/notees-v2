@@ -4,7 +4,6 @@ import useInput from "../Hooks/useInput";
 import { register } from "../utils/netword-data";
 
 const Register = () => {
-
   const [name, setName] = useInput("");
   const [email, setEmail] = useInput("");
   const [password, setPassword] = useInput("");
@@ -18,6 +17,15 @@ const Register = () => {
       }
     });
   };
+
+  useEffect(() => {
+    getUserLogged().then((res) => {
+      if (!res.error) {
+        dispatch(setLoggedUser(res.data));
+        navigate("/");
+      }
+    });
+  }, []);
 
   return (
     <>

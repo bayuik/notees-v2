@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { MdOutlineDelete } from "react-icons/md";
+import { IoArchiveOutline } from "react-icons/io5";
 import {
   getNote,
   archiveNote,
@@ -8,10 +11,7 @@ import {
   getArchivedNotes,
 } from "../utils/netword-data";
 import { showFormattedDate } from "../utils";
-import { MdOutlineDelete } from "react-icons/md";
-import { IoArchiveOutline } from "react-icons/io5";
 import { setActiveNotes, setArchivedNotes } from "../Store/noteSlice";
-import { useDispatch } from "react-redux";
 
 const DetailNote = () => {
   const { noteId } = useParams();

@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 const SearchBar = () => {
   const { pathname } = useLocation();
-
   return (
     <div className="search-bar">
       <h2>{pathname === "/" ? "Active" : "Archive"} Notes</h2>

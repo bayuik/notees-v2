@@ -1,20 +1,26 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { MdOutlineGTranslate, MdOutlineWbSunny } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
 import { HiOutlineLogout } from "react-icons/hi";
-import { useSelector } from "react-redux";
 import ThemeContext from "../Store/ThemeContext";
-import { useNavigate } from "react-router-dom";
 import { setLogout } from "../Store/userSlice";
 
 const Header = ({ theme }) => {
   const { user } = useSelector((user) => user);
   const { setTheme } = useContext(ThemeContext);
-  const navigate = useNavigate();
+
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");
     localStorage.setItem("theme", "light");
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setLogout();
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -23,12 +29,6 @@ const Header = ({ theme }) => {
       setTheme(localTheme);
     }
   }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setLogout();
-    window.location.reload();
-  };
 
   return (
     <header>

@@ -6,7 +6,6 @@ const useInput = (defaultValue = "") => {
   const onChangeValue = (e) => {
     setValue(e.target.value);
   };
-
   return [value, onChangeValue];
 };
 
