@@ -1,31 +1,46 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getNote, archiveNote, deleteNote } from "../utils/netword-data";
+import {
+  getNote,
+  archiveNote,
+  deleteNote,
+  getActiveNotes,
+  getArchivedNotes,
+} from "../utils/netword-data";
 import { showFormattedDate } from "../utils";
 import { MdOutlineDelete } from "react-icons/md";
 import { IoArchiveOutline } from "react-icons/io5";
+import { setActiveNotes, setArchivedNotes } from "../Store/noteSlice";
+import { useDispatch } from "react-redux";
 
 const DetailNote = () => {
   const { noteId } = useParams();
   const [note, setNote] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    getNote(noteId).then(({data}) => {
+    getNote(noteId).then(({ data }) => {
       setNote(data);
     });
   }, [noteId]);
 
   const handleDelete = () => {
     deleteNote(note.id);
-    navigate("/");
+    getActiveNotes().then((res) => {
+      dispatch(setActiveNotes(res.data));
+      navigate("/");
+    });
   };
 
   const handleArchive = () => {
     archiveNote(note.id);
-    navigate("/");
+    getArchivedNotes().then((res) => {
+      dispatch(setArchivedNotes(res.data));
+      navigate("/");
+    });
   };
-  
+
   return (
     <div className="detail-page">
       <h1 className="detail-page__title">{note.title}</h1>

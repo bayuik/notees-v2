@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NotesList from "../Components/NotesList";
 import SearchBar from "../Components/SearchBar";
 import PropTypes from "prop-types";
@@ -13,22 +13,21 @@ const Notes = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
     if (location.pathname === "/") {
-      setLoading(true);
-
       getActiveNotes().then((res) => {
         dispatch(setActiveNotes(res.data));
-          setLoading(false);
       });
     } else {
       getArchivedNotes().then((res) => {
         dispatch(setArchivedNotes(res.data));
-        setLoading(false);
       });
     }
-  }, []);
+    setLoading(false);
+  }, [navigate]);
 
   return (
     <>
