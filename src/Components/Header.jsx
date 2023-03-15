@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import { MdOutlineGTranslate, MdOutlineWbSunny } from "react-icons/md";
 import { BiMoon } from "react-icons/bi";
 import { HiOutlineLogout } from "react-icons/hi";
@@ -14,7 +14,7 @@ const Header = ({ theme }) => {
 
   const handleClick = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    localStorage.setItem("theme", "light");
+    localStorage.setItem("theme", theme === "light" ? "dark" : "light");
   };
 
   const handleLogout = () => {
@@ -55,5 +55,9 @@ const Header = ({ theme }) => {
     </header>
   );
 };
+
+Header.propTypes = {
+  theme: PropTypes.string.isRequired,
+}
 
 export default Header;
