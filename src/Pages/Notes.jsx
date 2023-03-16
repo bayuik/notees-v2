@@ -17,15 +17,12 @@ const Notes = () => {
 
   useEffect(() => {
     setLoading(true);
-    if (location.pathname === "/") {
       getActiveNotes().then((res) => {
         dispatch(setActiveNotes(res.data));
       });
-    } else {
       getArchivedNotes().then((res) => {
         dispatch(setArchivedNotes(res.data));
       });
-    }
     setLoading(false);
   }, [navigate]);
 
