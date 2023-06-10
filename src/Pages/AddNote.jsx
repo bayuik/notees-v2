@@ -1,38 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
+import { addNote } from "../utils/local-data";
 import { useNavigate } from "react-router-dom";
 import { MdDone } from "react-icons/md";
-import InputField from "../Components/InputField";
-import TextArea from "../Components/TextArea";
-import { addNote } from "../utils/netword-data";
-import useInput from "../Hooks/useInput";
 
 const AddNote = () => {
-  const [title, onTitleChange] = useInput("");
-  const [body, onBodyChange] = useInput("");
+  const [data, setData] = useState({
+    title: "",
+    body: "",
+  });
+
   const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    addNote({ title, body });
+    addNote(data);
     navigate("/");
   };
 
   return (
     <form className="add-new-page__input" onSubmit={handleSubmit}>
-      <InputField
+      <input
         type="text"
-        className={"add-new-page__input__title"}
+        className="add-new-page__input__title"
         placeholder="Title..."
         name="title"
-        value={title}
-        onChange={onTitleChange}
+        onChange={handleChange}
       />
-      <TextArea
-        className={"add-new-page__input__body"}
+      <textarea
+        className="add-new-page__input__body"
         placeholder="Note..."
+        spellCheck="false"
         name="body"
-        value={body}
-        onChange={onBodyChange}
-      />
+        onChange={handleChange}
+      ></textarea>
       <div className="add-new-page__action">
         <button className="action" type="submit" title="simpan">
           <MdDone />

@@ -1,6 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import NoteItem from "./NoteItem";
+import PropTypes from "prop-types";
 
 const NotesList = ({ notes }) => {
   return (
@@ -11,15 +11,15 @@ const NotesList = ({ notes }) => {
         </div>
       )}
       <div className="notes-list">
-        {notes &&
-          notes.map((note) => {
+        {notes.length > 0 &&
+          notes.map(({id, title, body, createdAt}) => {
             return (
               <NoteItem
-                key={note.id}
-                id={note.id}
-                title={note.title}
-                body={note.body}
-                createdAt={note.createdAt}
+                key={id}
+                id={id}
+                title={title}
+                body={body}
+                createdAt={createdAt}
               />
             );
           })}

@@ -1,63 +1,21 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import { MdOutlineGTranslate, MdOutlineWbSunny } from "react-icons/md";
-import { BiMoon } from "react-icons/bi";
-import { HiOutlineLogout } from "react-icons/hi";
-import ThemeContext from "../Store/ThemeContext";
-import { setLogout } from "../Store/userSlice";
 
-const Header = ({ theme }) => {
-  const { user } = useSelector((user) => user);
-  const { setTheme } = useContext(ThemeContext);
-
-  const handleClick = () => {
-    setTheme(theme === "light" ? "dark" : "light");
-    localStorage.setItem("theme", theme === "light" ? "dark" : "light");
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    setLogout();
-    window.location.reload();
-  };
-
-  useEffect(() => {
-    const localTheme = localStorage.getItem("theme");
-    if (localTheme) {
-      setTheme(localTheme);
-    }
-  }, []);
-
+const Header = () => {
   return (
     <header>
       <h1>
-        <Link to={"/"}>Notees</Link>
+        <Link to={'/'}>Notees</Link>
       </h1>
       <nav className="navigation">
         <ul>
-          <li>{user.name && <Link to={"/archived"}>Archived</Link>}</li>
+          <li>
+            <Link to={'/archived'}>Archived</Link>
+          </li>
         </ul>
       </nav>
-      <button className="toggle-locale" type="button">
-        <MdOutlineGTranslate className="" />
-      </button>
-      <button type="button" onClick={handleClick} className="toggle-theme">
-        {theme === "light" ? <BiMoon /> : <MdOutlineWbSunny />}
-      </button>
-      {user.name && (
-        <button className="button-logout" onClick={handleLogout}>
-          <HiOutlineLogout />
-          <p>{user.name}</p>
-        </button>
-      )}
     </header>
   );
 };
-
-Header.propTypes = {
-  theme: PropTypes.string.isRequired,
-}
 
 export default Header;
