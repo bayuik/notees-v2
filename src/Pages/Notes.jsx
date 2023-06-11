@@ -17,35 +17,31 @@ const Notes = () => {
 
   useEffect(() => {
     setLoading(true);
-      getActiveNotes().then((res) => {
-        dispatch(setActiveNotes(res.data));
-      });
-      getArchivedNotes().then((res) => {
-        dispatch(setArchivedNotes(res.data));
-      });
+    getActiveNotes().then((res) => {
+      dispatch(setActiveNotes(res.data));
+    });
+    getArchivedNotes().then((res) => {
+      dispatch(setArchivedNotes(res.data));
+    });
     setLoading(false);
   }, [navigate]);
 
-  return (
-    <>
-      {loading ? (
-        <div className="not-found">Loading</div>
-      ) : (
-        <section className="homepage">
-          <SearchBar />
-          <NotesList
-            notes={location.pathname === "/" ? activeNotes : archivedNotes}
-          />
-          <div className="homepage__action">
-            <Link to={"/add"}>
-              <button className="action" title="tambah">
-                +
-              </button>
-            </Link>
-          </div>
-        </section>
-      )}
-    </>
+  return loading ? (
+    <div className="not-found">Loading</div>
+  ) : (
+    <section className="homepage">
+      <SearchBar />
+      <NotesList
+        notes={location.pathname === "/" ? activeNotes : archivedNotes}
+      />
+      <div className="homepage__action">
+        <Link to={"/add"}>
+          <button className="action" title="tambah">
+            +
+          </button>
+        </Link>
+      </div>
+    </section>
   );
 };
 

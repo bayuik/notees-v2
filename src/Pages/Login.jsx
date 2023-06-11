@@ -15,7 +15,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     login({ email, password }).then((res) => {
-      if (res.error == false) {
+      if (res.error === false) {
         putAccessToken(res.data.accessToken);
         navigate("/");
       }
